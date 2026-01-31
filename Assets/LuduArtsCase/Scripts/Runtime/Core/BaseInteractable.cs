@@ -27,7 +27,6 @@ namespace LuduArts.Interaction
 		[Header("Highlight Settings")]
 		[Tooltip("Q ile tarama yapýldýðýnda açýlacak görsel obje (World Canvas ikon vb.)")]
 		[SerializeField] private GameObject m_HighlightVisual;
-
 		#endregion
 
 		#region Properties
@@ -38,17 +37,13 @@ namespace LuduArts.Interaction
 
 		#region Unity Methods
 
-		protected virtual void Awake()
-		{
-			// AudioSource ayarlarý
-			m_AudioSource.spatialBlend = 1.0f; // 3D Ses
-		}
 
 		// Trigger Mantýðý: Oyuncu alana girdi mi?
 		private void OnTriggerEnter(Collider other)
 		{
 			if (other.CompareTag("Player"))
 			{
+				SetHighlight(true);
 				m_IsInRange = true;
 			}
 		}
@@ -58,6 +53,8 @@ namespace LuduArts.Interaction
 		{
 			if (other.CompareTag("Player"))
 			{
+				SetHighlight(false);
+
 				m_IsInRange = false;
 			}
 		}
@@ -82,6 +79,7 @@ namespace LuduArts.Interaction
 				m_HighlightVisual.SetActive(isActive);
 			}
 		}
+
 
 		public string GetInteractionPrompt()
 		{

@@ -41,14 +41,13 @@ namespace LuduArts.Player
 
 			if (Physics.Raycast(ray, out RaycastHit hit, m_RayDistance, m_InteractionLayer))
 			{
-				if (hit.collider.TryGetComponent(out IInteractable interactable))
+				IInteractable interactable = hit.collider.GetComponentInParent<IInteractable>();
+				if (interactable != null)
 				{
 					// ÖNEMLÝ: Raycast objeyi görse bile, oyuncu Trigger içinde deðilse etkileþim yok.
 					if (interactable.IsInRange)
 					{
 						m_CurrentInteractable = interactable;
-						m_InteractionUI.text = interactable.GetInteractionPrompt();
-						m_InteractionUI.gameObject.SetActive(true);
 						return;
 					}
 				}
